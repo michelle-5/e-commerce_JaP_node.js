@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <title>eMercado - Todo lo que busques está aquí</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .input {
+      border-radius: 0.2rem;
+      border: 1px solid lightgray;
+      height: 2rem;
+      width: 25%;
+      margin-right: 1rem;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+     #cerrarSesion:hover, #showEmail:hover {
+          text-decoration: underline;
+        }
+  </style>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="css/dropzone.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="site-header sticky-top py-1 bg-dark">
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
+      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
+      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
+      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
+      <div class="btn-group">
+        <button id="showEmail" class="py-2 d-none d-md-inline-block dropdown-toggle" type="button" data-toggle="dropdown" style="width: 180px; background-color: #343a40; color: white; border-style: hidden;">
+          <script type="text/javascript">
+            let htmlContentToAppend = "";
+            if (localStorage.getItem('usuario') != null) {
+              htmlContentToAppend += `
+            <span> ` + localStorage.getItem("usuario"); + ` </span>
+            `
+            }else{
+              htmlContentToAppend += `
+            <span> ` + sessionStorage.getItem("usuario"); + ` </span>
+            `
+            }
+            document.getElementById("showEmail").innerHTML = htmlContentToAppend;
+          </script>
+        </button>
+        <ul class="dropdown-menu">
+          <a href="my-profile.html" class="py-2 d-none d-md-inline-block" style="text-align: center; width: 178px; background-color: white; color: #343a40; border-style: hidden;">Mi perfil</a>
+          <a href="cart.html" class="py-2 d-none d-md-inline-block" style="text-align: center; width: 178px; background-color: white; color: #343a40; border-style: hidden;">Mi carrito</a>
+          <button id="cerrarSesion" class="py-2 d-none d-md-inline-block" style="width: 178px; background-color: white; color: #343a40; border-style: hidden;" onclick="cerrar()">Cerrar sesión</button>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container p-5">
+    <h3 style="text-align: center;">Mi perfil</h3>
+    <img src="" width="12%" alt="Preview" id="profilePic" style="margin: auto; display: block;">
+    <h5>Editar información:</h5><br>
+    <form action="my-profile.html">
+      <input type="text" class="input" id="nombres" placeholder="Nombres" required>
+      <input type="text" class="input" id="apellidos" placeholder="Apellidos" required><br><br>
+      <input type="email" class="input" id="correo" placeholder="Email" required disabled>
+      <input type="text" class="input" id="telefono" onkeypress="return isNumberKey(event)" minlength="9" maxlength="15" placeholder="Teléfono" required><br><br>
+      <input type="number" class="input" id="edad" min="1" max="100" placeholder="Edad" required><br><br><br>
+      <input type="file" id="upload"><br><br><br>
+      <button class="btn btn-primary" type="submit" id="guardarCambios">Guardar cambios</button><br><br><br>
+    </form>
+  <div class="alert fade alert-success" role="alert" id="alertResult">
+    <span id="resultSpan"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div id="spinner-wrapper">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+    </div>
+  </footer>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/dropzone.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/my-profile.js"></script>
+</body>
+
+</html>

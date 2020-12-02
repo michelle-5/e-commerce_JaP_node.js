@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <title>eMercado - Todo lo que busques está aquí</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <style>
+    #cerrarSesion:hover, #showEmail:hover {
+         text-decoration: underline;
+       }
+
+       .stars-container {
+         display: flex;
+         flex-direction: column;
+       }
+
+       .stars-container .star-widget input {
+         display: none;
+       }
+
+       .star-widget label{
+        float: right;
+       }
+
+       input:not(checked) ~ label:hover,
+       input:not(checked) ~ label:hover ~ label{
+         color: orange;
+       }
+
+       input:checked ~ label {
+         color: orange;
+       }
+
+       .zoom:hover{
+        transform: scale(1.05);
+        transition: transform .4s;
+       }
+
+ </style>
+</head>
+
+<body>
+  <nav class="site-header sticky-top py-1 bg-dark">
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
+      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
+      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
+      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
+      <div class="btn-group">
+        <button id="showEmail" class="py-2 d-none d-md-inline-block dropdown-toggle" type="button" data-toggle="dropdown" style="width: 180px; background-color: #343a40; color: white; border-style: hidden;">
+          <script type="text/javascript">
+            let htmlContentToAppend = "";
+            if (localStorage.getItem('usuario') != null) {
+              htmlContentToAppend += `
+            <span> ` + localStorage.getItem("usuario"); + ` </span>
+            `
+            }else{
+              htmlContentToAppend += `
+            <span> ` + sessionStorage.getItem("usuario"); + ` </span>
+            `
+            }
+            document.getElementById("showEmail").innerHTML = htmlContentToAppend;
+          </script>
+        </button>
+        <ul class="dropdown-menu">
+          <a href="my-profile.html" class="py-2 d-none d-md-inline-block" style="text-align: center; width: 178px; background-color: white; color: #343a40; border-style: hidden;">Mi perfil</a>
+          <a href="cart.html" class="py-2 d-none d-md-inline-block" style="text-align: center; width: 178px; background-color: white; color: #343a40; border-style: hidden;">Mi carrito</a>
+          <button id="cerrarSesion" class="py-2 d-none d-md-inline-block" style="width: 178px; background-color: white; color: #343a40; border-style: hidden;" onclick="cerrar()">Cerrar sesión</button>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main role="main">
+    <div class="container mt-5">
+      <div class="text-center p-4">
+        <h2>Descripción del producto</h2>
+        <p class="lead">Encontrarás aquí toda la información del producto seleccionado.</p>
+        <p class="small alert-warning py-3"><strong>Nota: </strong>por simplicidad, cualquiera sea el producto
+        seleccionado previamente, siempre se visualizará el presente: <strong>Chevrolet Onix Joy</strong>.</p>
+      </div>
+        <h3 id="productName"></h3>
+        <hr class="my-3">
+
+        <div style="display: flex; width: 100%;">
+          <div style="width: 50%; cursor: -webkit-zoom-in;" >
+            <div id="productImages"></div>
+          </div>
+          <div style="width: 50%; margin-left: 1rem;">
+            <dl>
+              <dt>Costo</dt>
+                  <p id="productCost" style="margin-bottom: 0.5rem;"></p>
+                <dt>Categoría</dt>
+                  <p style="margin-bottom: 0.5rem;"><a href="category-info.html" id="productCategory"></a></p>
+                <dt>Cantidad de vendidos</dt>
+                  <p id="productSoldCount" style="margin-bottom: 0.5rem;"></p>
+                <dt>Descripción</dt>
+                  <p id="productDesc" style="margin-bottom: 1rem; font-size: 0.97rem;"></p>
+                <button class="btn btn-primary">Añadir al carrito</button>
+            </dl>
+          </div>
+        </div>
+        <br>
+        <dl>
+          <dt>Productos relacionados</dt>
+            <dd>
+              <div id="relatedProducts"></div>
+            </dd>
+          <dt>Comentarios</dt>
+            <dd>
+              <div id="comments-Container"></div>
+              <div id="newComments" class="media-body"></div>
+            </dd>
+          <div style="margin-left: 1.4rem; margin-top: 1rem; width: 60%; margin-bottom: 1.5rem;">
+            <form onsubmit="return false">
+              <i style="position: relative; top: -4.4rem;" class="fas fa-user"></i>
+              <textarea id="userComment" style="resize: none; width: 95%; height: 5.5rem;" placeholder="Añadir comentario" required></textarea>
+              <br>
+              <button onclick="publicar()" class="btn btn-primary btn-lg" style="float: right; padding: 0.2rem; font-size: 1.1rem; margin-right: 1.3rem;">Publicar</button>
+            
+            <div class="stars-container">
+              <div class="star-widget" style="margin-right: 0.5rem; position: relative; top: 0.5rem;">
+                <input type="radio" name="rate" id="rate-5" value="5" required>
+                <label for="rate-5" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-4" value="4">
+                <label for="rate-4" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-3" value="3">
+                <label for="rate-3" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-2" value="2">
+                <label for="rate-2" class="fas fa-star"></label>
+                <input type="radio" name="rate" id="rate-1" value="1">
+                <label for="rate-1" class="fas fa-star"></label>
+              </div>
+            </div><br>
+          </form>
+          </div>
+        </dl>
+      <a type="button" class="btn btn-light btn-lg btn-block" href="products.html">Ver listado de productos</a>
+    </div>
+  </main>
+
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+    </div>
+  </footer>
+  <div id="spinner-wrapper">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/product-info.js"></script>
+</body>
+
+</html>
